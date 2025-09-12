@@ -20,16 +20,88 @@ namespace WaterJugAPI.Services
                 return response;
             }
 
-            // Ejecutar dos simulaciones: empezando con X y empezando con Y
-            var fromX = Pour(x, y, z, "X", "Y");
-            var fromY = Pour(y, x, z, "Y", "X");
+            // Buscar todas las soluciones posibles usando BFS
+            var allSolutions = FindAllSolutions(x, y, z);
+            response.AllSolutions = allSolutions;
 
-            // Escoger la mejor (menos pasos)
-            var best = fromX.Count <= fromY.Count ? fromX : fromY;
+            if (allSolutions.Count == 0)
+            {
+                response.Message = "No solution found.";
+                return response;
+            }
 
-            response.Solution = best;
+            // Mejor solución: menos pasos
+            var best = allSolutions.OrderBy(s => s.Count).First();
+            // Peor solución: más pasos
+            var worst = allSolutions.OrderByDescending(s => s.Count).First();
+
+            response.BestSolution = best;
+            response.WorstSolution = worst;
             response.Message = "Solved";
             return response;
+        }
+
+        // BFS para encontrar todas las soluciones posibles
+        private List<List<JugStep>> FindAllSolutions(int x, int y, int z)
+        {
+            var solutions = new List<List<JugStep>>();
+            var visited = new HashSet<string>();
+            var queue = new Queue<(int, int, List<JugStep>)>();
+
+            // Estado inicial: ambos vacíos
+            queue.Enqueue((0, 0, new List<JugStep>()));
+
+            while (queue.Count > 0)
+            {
+                var (currX, currY, steps) = queue.Dequeue();
+                string stateKey = $"{currX},{currY}";
+                if (visited.Contains(stateKey)) continue;
+                visited.Add(stateKey);
+
+                // Si se alcanza la meta
+                if (currX == z || currY == z)
+                {
+                    var solvedSteps = new List<JugStep>(steps);
+                    if (solvedSteps.Count > 0)
+                        solvedSteps[solvedSteps.Count - 1].Status = "Solved";
+                    solutions.Add(solvedSteps);
+                    continue;
+                }
+
+                int stepNum = steps.Count + 1;
+
+                // Posibles movimientos
+                var nextStates = new List<(int, int, string)> {
+                    (x, currY, "Fill bucket X"),
+                    (currX, y, "Fill bucket Y"),
+                    (0, currY, "Empty bucket X"),
+                    (currX, 0, "Empty bucket Y"),
+                    // Transfer X -> Y
+                    (currX - Math.Min(currX, y - currY), currY + Math.Min(currX, y - currY), "Transfer from X to Y"),
+                    // Transfer Y -> X
+                    (currX + Math.Min(currY, x - currX), currY - Math.Min(currY, x - currX), "Transfer from Y to X")
+                };
+
+                foreach (var (nextX, nextY, action) in nextStates)
+                {
+                    // Evitar ciclos
+                    string nextKey = $"{nextX},{nextY}";
+                    if (visited.Contains(nextKey)) continue;
+
+                    var newSteps = new List<JugStep>(steps)
+                    {
+                        new JugStep
+                        {
+                            Step = stepNum,
+                            BucketX = nextX,
+                            BucketY = nextY,
+                            Action = action
+                        }
+                    };
+                    queue.Enqueue((nextX, nextY, newSteps));
+                }
+            }
+            return solutions;
         }
 
         private List<JugStep> Pour(int fromCap, int toCap, int target, string fromName, string toName)
