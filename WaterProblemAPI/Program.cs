@@ -1,5 +1,7 @@
 var builder = WebApplication.CreateBuilder(args);
 
+
+
 builder.Services.AddControllers();
 builder.Services.AddMemoryCache();
 builder.Services.AddEndpointsApiExplorer();
@@ -16,4 +18,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseAuthorization(); 
 app.MapControllers();
+
 app.Run();
+
+public partial class Program { }

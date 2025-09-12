@@ -8,6 +8,18 @@ namespace WaterJugAPI.Services
         {
             var response = new JugResponse();
 
+            // Input limits: min 1, max 1000 for x and z, max 999 for y
+            if (x < 1 || y < 1 || z < 1)
+            {
+                response.Message = "Input values must be at least 1 (X, Y, Z ≥ 1).";
+                return response;
+            }
+            if (x > 1000 || y > 999 || z > 1000)
+            {
+                response.Message = "Input values too large. Max allowed: X ≤ 1000, Y ≤ 999, Z ≤ 1000. This prevents excessive memory/CPU usage.";
+                return response;
+            }
+
             if (z > Math.Max(x, y))
             {
                 response.Message = "No solution possible: target is larger than both buckets.";
