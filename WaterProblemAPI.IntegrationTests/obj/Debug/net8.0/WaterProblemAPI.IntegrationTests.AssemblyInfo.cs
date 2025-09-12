@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("WaterProblemAPI.IntegrationTests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+cc69d2a8f8013c6e0d14000d7ffb2a24342c0854")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+13751e5fcf61027f0a1340abc348f770653b79aa")]
 [assembly: System.Reflection.AssemblyProductAttribute("WaterProblemAPI.IntegrationTests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("WaterProblemAPI.IntegrationTests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

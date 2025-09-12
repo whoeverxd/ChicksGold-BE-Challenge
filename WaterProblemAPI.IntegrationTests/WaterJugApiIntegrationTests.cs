@@ -22,7 +22,7 @@ namespace WaterProblemAPI.IntegrationTests
             var response = await client.PostAsJsonAsync("/api/WaterJug/solve", request);
             response.EnsureSuccessStatusCode();
             var json = await response.Content.ReadAsStringAsync();
-            Assert.Contains("bestSolution", json.ToLower());
+            Assert.Contains("bestSolution", json);
         }
 
         [Fact]
