@@ -1,0 +1,67 @@
+# .NET build artifacts
+bin/
+obj/
+*.dll
+*.exe
+*.pdb
+*.app
+*.log
+*.vspscc
+*.vssscc
+*.user
+*.suo
+*.cache
+*.dbmdl
+*.dbmdl
+*.bak
+*.nupkg
+*.snk
+*.psess
+*.vsp
+*.vsix
+*.docstates
+
+# Visual Studio Code
+.vscode/
+
+# Rider
+.idea/
+*.sln.iml
+
+# Test results
+TestResults/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Others
+*.swp
+*.tmp
+*.bak
+*.old
+*.orig
+
+# NuGet packages
+*.nupkg
+# The packages folder can be ignored because of Package Restore
+**/packages/*
+!**/packages/build/
+!**/packages/repositories.config
+
+# User-specific files
+*.userosscache
+*.sln.docstates
+
+# DotCover
+.idea/.dotCover
+
+# Local history for Visual Studio
+.localhistory/
+
+# JetBrains Rider
+.idea/
+*.sln.iml
+
+# ASP.NET Scaffolding
+ScaffoldingReadMe.txt
