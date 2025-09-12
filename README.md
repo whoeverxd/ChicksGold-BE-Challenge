@@ -101,7 +101,7 @@ This API computes the steps required to measure exactly Z gallons using two jugs
    cd ChicksGold-BE-Challenge/WaterProblemAPI
    ```
 
-2. **Restore dependencies:**
+2. **Restore dependencies:** (MAKE sure you are in the right API folder using cd before continuing) 
    ```sh
    dotnet restore
    ```
@@ -161,9 +161,13 @@ The BFS ensures that all possible sequences of actions are explored, and all sol
    - Worst practical case: when Z is reachable but only after a long path in the state graph.
    - Worst-case complexity: O(X * Y) in both time and memory.
    - A.gitignore file is added to prevent unnecessary files, such as /bin folders from tests, from being tracked in git.
+   - the tests are located in the main project folder (root), so make sure of moving there for testing purposes
 
+    ## INTEGRATION TESTS 
+        - USING  dotnet add WaterProblemAPI.IntegrationTests package Microsoft.AspNetCore.Mvc.Testing --version 8.0.5
+
+        Command: dotnet test WaterProblemAPI.IntegrationTests
     ## UNIT TESTS 
-        - se usa  dotnet add WaterProblemAPI.IntegrationTests package Microsoft.AspNetCore.Mvc.Testing --version 8.0.5
 
         Command: dotnet test WaterJugAPI.Tests
 
