@@ -1,3 +1,70 @@
+# API Endpoints
+
+| Method | Endpoint               | Description                               |
+| ------ | ---------------------- | ----------------------------------------- |
+| POST   | /api/WaterJug/solve    | Solve the water jug problem               |
+| GET    | /api/WaterJug/example  | Get a sample request and response         |
+| GET    | /api/WaterJug/health   | Health check                              |
+| GET    | /api/WaterJug/limits   | Get input limits for X, Y, Z              |
+| POST   | /api/WaterJug/validate | Check if a problem is solvable (no steps) |
+
+-Check swagger for more info and interactive tests, wink wink ;)
+
+# Example Request/Response
+
+**Request:**
+```json
+POST /api/WaterJug/solve
+{
+   "X_Capacity": 2,
+   "Y_Capacity": 10,
+   "Z_Amount_Wanted": 4
+}
+```
+
+**Response:**
+```json
+{
+   "allSolutions": [...],
+   "bestSolution": [...],
+   "worstSolution": [...],
+   "message": "Solved"
+}
+```
+
+# Testing Instructions
+
+**Unit tests:**
+```sh
+dotnet test WaterJugAPI.Tests
+```
+
+**Integration tests:**
+```sh
+dotnet test WaterProblemAPI.IntegrationTests
+```
+
+# Error Handling
+
+| Status | Example Message                                      | When?                         |
+| ------ | ---------------------------------------------------- | ----------------------------- |
+| 400    | {"message": "All values must be positive integers."} | Invalid input (X, Y, Z < 1)   |
+| 200    | {"message": "No solution possible: ..."}             | No solution for given X, Y, Z |
+
+# Design Decisions
+
+- BFS is used for optimal and complete solution finding.
+- In-memory caching for performance under repeated queries.
+- Input limits to prevent resource exhaustion and abuse.
+
+# Extensibility
+
+- Could add authentication, rate limiting, persistent storage, or user history.
+- Could expose more endpoints for statistics or advanced queries.
+
+# Contact
+
+For questions or feedback, contact: whoeverxd (GitHub).
 
 # ChicksGold-BE-Challenge
 
@@ -93,24 +160,13 @@ The BFS ensures that all possible sequences of actions are explored, and all sol
 # PROGRAMMER NOTES
    - Worst practical case: when Z is reachable but only after a long path in the state graph.
    - Worst-case complexity: O(X * Y) in both time and memory.
-    
-## EXTRA :     
-  - GET /api/WaterJug/example
-  Returns a sample request and response, helping users understand the API format.
-
-  - GET /api/WaterJug/health
-  Health check endpoint to verify the API is running.
-
-  - GET /api/WaterJug/limits
-  Returns the current input limits (min/max for X, Y, Z) so clients can validate before sending requests.
-
-  - POST /api/WaterJug/validate
-  Accepts X, Y, Z and returns only if the problem is solvable, without computing the full solution.
+   - A.gitignore file is added to prevent unnecessary files, such as /bin folders from tests, from being tracked in git.
 
     ## UNIT TESTS 
         - se usa  dotnet add WaterProblemAPI.IntegrationTests package Microsoft.AspNetCore.Mvc.Testing --version 8.0.5
 
         Command: dotnet test WaterJugAPI.Tests
 
-    ##
+
+
     
