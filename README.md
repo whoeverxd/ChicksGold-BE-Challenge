@@ -155,7 +155,7 @@ The BFS ensures that all possible sequences of actions are explored, and all sol
          - Minimum range: X, Y, Z ≥ 1.
          - Maximum range: X ≤ 1000, Y ≤ 999, Z ≤ 1000.
             - Note: These are not mathematical limits of the problem, but practical ones. Using BFS, the number of possible states is O(x*y). For example, if X = Y = 10,000, you already have 100 million states, which is too large for memory and CPU.
-            - This prevents a malicious user from sending extremely large values (e.g., X=10^9, Y=10^9, Z=1) and crashing the service. Therefore, a limit of 1000 is set for safety.
+            - This prevents a malicious user like william bello from sending extremely large values (e.g., X=10^9, Y=10^9, Z=1) and crashing the service. Therefore, a limit of 1000 is set for safety.
   
 # PROGRAMMER NOTES
    - Worst practical case: when Z is reachable but only after a long path in the state graph.
